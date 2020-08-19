@@ -11,7 +11,7 @@ __pycache__/
 *.so
 .pytest_cache
 node_modules
-
+temp
 # Distribution / packaging
 .Python
 build/
@@ -30,10 +30,7 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
-api/data
-dev/pg_admin_dc/data
-dev/pg_admin_dc/pgadmin
-
+api/temp
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -116,8 +113,6 @@ venv.bak/
 *mysql_data_prod*
 client/node_modules
 */node_modules/*
-docker-setup/redis/redis_data
-
-.vscode/
-redis/redis_data/appendonly.aof
-
+client/node_modules/*
+node_modules
+*node_modules*
