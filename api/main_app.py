@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 import os
 
-import click
-from flask_sqlalchemy import Model
-
 from app import create_app
-from shared.factories import db
 
 env = os.environ.get("FLASK_ENV", "default")
 app = create_app(os.environ.get("FLASK_ENV", "default"))
@@ -14,16 +10,18 @@ client = app.client
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(app=app, db=db, Model=Model)
+    return dict(app=app, )
 
 
 @app.cli.command()
 def create_all_tables():
     """Create all tables"""
-    db.create_all()
+    from models.search_results import SearchRequests
+    if not SearchRequests.exists():
+        SearchRequests.create_table(read_capacity_units=1, write_capacity_units=1, wait=True)
 
 
 @app.cli.command()
 def drop_all_tables():
     """Drop all tables"""
-    db.drop_all()
+    raise NotImplementedError("This is not Implemented Yet!")

@@ -26,3 +26,4 @@ flask_apscheduler
 requests
 pynamodb
 flask_sqlalchemy
+flask-marshmallow

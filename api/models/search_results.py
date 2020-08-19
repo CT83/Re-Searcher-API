@@ -1,38 +1,28 @@
-from flask import current_app
-from pynamodb.attributes import NumberAttribute, UnicodeAttribute, MapAttribute
+from pynamodb.attributes import UnicodeAttribute, ListAttribute, MapAttribute
 from pynamodb.models import Model
-
-class BaseModel(Model):
-
-
-class SearchEntries(MapAttribute):
-    class Meta:
-        table_name = 'SearchEntries'
-        host = current_app.config['DB_URL']
-
-    name = UnicodeAttribute(null=False)
-    url = UnicodeAttribute(null=False)
-
-
-class SearchResults(MapAttribute):
-    class Meta:
-        table_name = 'SearchResults'
-        host = current_app.config['DB_URL']
-
-    make = UnicodeAttribute(null=False)
-    model = UnicodeAttribute(null=True)
-
 
 """Every search_request -> several search results, -> several search entries"""
 
 
-class SearchRequests(Model):
+class BaseModel(Model):
+    def to_dict(self):
+        rval = {}
+        for key in self.attribute_values:
+            rval[key] = self.__getattribute__(key)
+        return rval
+
+
+class Results(MapAttribute):
+    name = UnicodeAttribute(null=False)
+    url = UnicodeAttribute(null=False)
+
+
+class SearchRequests(BaseModel):
     class Meta:
         table_name = 'SearchRequests'
-        host = current_app.config['DB_URL']
+        host = None
+        aws_access_key_id = "anything"
+        aws_secret_access_key = "fake"
 
-    id = NumberAttribute(hash_key=True)
-    name = UnicodeAttribute()
-
-    def __repr__(self):
-        return "<SearchResults {} name:{}>".format(self.id, self.name)
+    query = UnicodeAttribute(hash_key=True)
+    results = ListAttribute(of=Results)

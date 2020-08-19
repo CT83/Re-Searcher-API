@@ -1,4 +1,4 @@
-from celery import current_app
+from flask import current_app
 
 from app.search_api.mock_search import MockSearch
 

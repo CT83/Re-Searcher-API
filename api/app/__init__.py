@@ -27,4 +27,9 @@ def create_app(config_name):
 
     app.redis_store = init_redis(app)
 
+    from models.search_results import SearchRequests
+    SearchRequests.Meta.host = app.config['DB_URL']
+    if not SearchRequests.exists():
+        SearchRequests.create_table(read_capacity_units=1, write_capacity_units=1, wait=True)
+
     return app

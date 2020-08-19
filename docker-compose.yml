@@ -14,6 +14,8 @@ services:
     command: -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data/
     ports:
       - 8000:8000
+    volumes:
+      - ./database/data:/home/dynamodblocal/data
 
   api:
     container_name: rs-api
@@ -25,8 +27,6 @@ services:
     volumes:
       - ./api:/app
       - ./data:/data
-    stdin_open: true
-    tty: true
 
   api-test:
     container_name: rs-test
@@ -36,6 +36,8 @@ services:
     command: "ptw"
     volumes:
       - ./api:/app
+    depends_on:
+      - database
 
   worker:
     container_name: rs-worker
@@ -43,6 +45,8 @@ services:
       context: .
       dockerfile: ./worker/Dockerfile
     restart: on-failure
+    depends_on:
+      - database
     env_file:
       - .env
 
