@@ -12,11 +12,9 @@ services:
     container_name: rs-database
     build: database/.
     volumes:
-      - ./database/db_data:/var/lib/postgresql
-    env_file:
-      - .env
+      - ./database/data:/home/dynamodblocal/data
     ports:
-      - 5432:5432
+      - 8000:8000
 
   api:
     container_name: rs-api
@@ -28,7 +26,6 @@ services:
     volumes:
       - ./api:/app
       - ./data:/data
-    # restart: on-failure
     stdin_open: true
     tty: true
 
