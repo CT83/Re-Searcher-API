@@ -2,7 +2,6 @@
 import os
 
 import click
-from flask_migrate import Migrate
 from flask_sqlalchemy import Model
 
 from app import create_app
@@ -11,7 +10,6 @@ from shared.factories import db
 env = os.environ.get("FLASK_ENV", "default")
 app = create_app(os.environ.get("FLASK_ENV", "default"))
 client = app.client
-migrate = Migrate(app, db)
 
 
 @app.shell_context_processor

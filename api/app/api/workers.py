@@ -1,25 +1,25 @@
 from flask import request
 from flask_restful import Resource
 
-from app.api.serializers.worker_schema import WorkerSchema
-from models import Worker
+# from app.api.serializers.worker_schema import WorkerSchema
+# from models import Worker
 from shared.factories import db
 
 
 class Workers(Resource):
 
     def post(self):
-        schema = WorkerSchema()
-        data = request.json
-        errors = schema.validate(data, session=db.session)
-        if errors:
-            return {"error": True, "errors": errors}, 400
-        work = Worker(**data)
-        db.session.add(work)
-        db.session.commit()
-        res = work.as_dict()
-        print(work)
-        res["message"] = "New Worker Created Successfully!"
+        # schema = WorkerSchema()
+        # data = request.json
+        # errors = schema.validate(data, session=db.session)
+        # if errors:
+        #     return {"error": True, "errors": errors}, 400
+        # work = Worker(**data)
+        # db.session.add(work)
+        # db.session.commit()
+        # res = work.as_dict()
+        # print(work)
+        # res["message"] = "New Worker Created Successfully!"
         return res
 
     def put(self, index):

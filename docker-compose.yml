@@ -10,9 +10,8 @@ services:
 
   database:
     container_name: rs-database
-    build: database/.
-    volumes:
-      - ./database/data:/home/dynamodblocal/data
+    image: amazon/dynamodb-local
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data/
     ports:
       - 8000:8000
 
@@ -51,7 +50,3 @@ services:
     container_name: rs-redis
     build: redis/.
     command: redis-server --appendonly yes
-    volumes:
-      - ./redis/redis_data:/data
-    env_file:
-      - .env

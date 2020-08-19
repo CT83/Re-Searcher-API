@@ -20,20 +20,9 @@ class Config:
 class DevelopmentConfig(Config):
     CONFIG_NAME = "development"
     DEBUG = True
-    # Database
-    DBUSER = os.environ.get('POSTGRES_USER')
-    DBPASS = os.environ['POSTGRES_PASSWORD']
-    DBHOST = os.environ['DBHOST']
-    DBPORT = os.environ['DBPORT']
-    DBNAME = os.environ['POSTGRES_DB']
 
-    SQLALCHEMY_DATABASE_URI = \
-        'postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}'.format(
-            user=DBUSER,
-            passwd=DBPASS,
-            host=DBHOST,
-            port=DBPORT,
-            db=DBNAME)
+    # Database
+    DB_URL = os.environ['DB_URL']
 
     REDIS_HOST = os.environ['REDIS_HOST']
     REDIS_PORT = os.environ['REDIS_PORT']
@@ -47,8 +36,7 @@ class TestingConfig(Config):
     CONFIG_NAME = "testing"
     TESTING = True
     DB_FILE_NAME = 'temp/test_{}.db'.format(generate_random_hash())
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(basedir, DB_FILE_NAME)
+    DB_URL = os.environ['DB_URL']
     APP_NAME = os.environ.get('APP_NAME')
     RQ_CONNECTION_CLASS = 'fakeredis.FakeStrictRedis'
     CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
@@ -58,19 +46,8 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     CONFIG_NAME = "production"
     # Database
-    DBUSER = os.environ.get('POSTGRES_USER')
-    DBPASS = os.environ['POSTGRES_PASSWORD']
-    DBHOST = os.environ['DBHOST']
-    DBPORT = os.environ['DBPORT']
-    DBNAME = os.environ['POSTGRES_DB']
+    DB_URL = os.environ['DB_URL']
 
-    SQLALCHEMY_DATABASE_URI = \
-        'postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}'.format(
-            user=DBUSER,
-            passwd=DBPASS,
-            host=DBHOST,
-            port=DBPORT,
-            db=DBNAME)
     REDIS_HOST = os.environ['REDIS_HOST']
     REDIS_PORT = os.environ['REDIS_PORT']
     REDIS_URL = "redis://{}:{}/0".format(REDIS_HOST, REDIS_PORT)

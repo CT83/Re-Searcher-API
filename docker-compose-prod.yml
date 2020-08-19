@@ -16,7 +16,7 @@ services:
       context: api/.
       dockerfile: Dockerfile-prod
     env_file:
-      - .env
+      - .prod-env
     depends_on:
       - database
     restart: on-failure
@@ -39,6 +39,5 @@ services:
     container_name: rs-redis
     build: redis/.
     command: redis-server --appendonly yes
-    env_file:
-      - .env
+
 
