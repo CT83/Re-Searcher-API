@@ -11,7 +11,7 @@ __pycache__/
 *.so
 .pytest_cache
 node_modules
-
+.prod-env
 # Distribution / packaging
 .Python
 build/

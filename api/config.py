@@ -1,6 +1,6 @@
 import os
 
-from shared.utils import generate_random_hash
+from shared.utils import generate_random_string
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,6 +11,8 @@ class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SCHEDULER_API_ENABLED = True
+
+    AZURE_BING_KEY = os.environ.get('AZURE_BING_KEY')
 
     @staticmethod
     def init_app(app):
@@ -35,8 +37,8 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     CONFIG_NAME = "testing"
     TESTING = True
-    DB_FILE_NAME = 'temp/test_{}.db'.format(generate_random_hash())
-    DB_URL = os.environ['DB_URL']
+    DB_FILE_NAME = 'temp/test_{}.db'.format(generate_random_string())
+    DB_URL = 'sqlite:///' + os.path.join(basedir, DB_FILE_NAME)
     APP_NAME = os.environ.get('APP_NAME')
     RQ_CONNECTION_CLASS = 'fakeredis.FakeStrictRedis'
     CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'

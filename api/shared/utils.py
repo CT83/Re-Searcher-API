@@ -1,9 +1,9 @@
+import binascii
 import os
 import random
 import re
 import shutil
 import string
-import uuid
 
 import fakeredis
 from flask_redis import FlaskRedis
@@ -39,8 +39,8 @@ def datetime_to_filename(dt):
     return dt.strftime("%d%m%Y_%H%M%S%f")
 
 
-def generate_random_hash():
-    return str(uuid.uuid4().hex)
+def generate_random_hex(nos=6):
+    return binascii.b2a_hex(os.urandom(nos)).decode('utf-8')
 
 
 def generate_random_string(length=10):

@@ -19,15 +19,15 @@ def app():
     app = create_app("testing")
 
     with app.app_context():
-        from shared.factories import db
-
-        db.create_all()
+        # from shared.factories import db
+        #
+        # db.create_all()
 
         yield app
-        try:
-            db.drop_all()
-        except:
-            pass
+        # try:
+        #     db.drop_all()
+        # except:
+        #     pass
 
 
 def cleanup_dirs_and_db():

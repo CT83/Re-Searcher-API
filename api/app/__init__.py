@@ -2,9 +2,10 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 
+from app.api.search import SearchRes
 from app.api.workers import Workers
 from config import config
-from shared.utils import db_connection_successful, init_celery, init_redis
+from shared.utils import init_celery, init_redis
 
 
 def create_app(config_name):
@@ -14,18 +15,7 @@ def create_app(config_name):
     CORS(app)
 
     api = Api(app)
-    api.add_resource(
-        Workers, "/workers", "/workers/<int:index>",
-    )
-
-    # Database
-    from shared.factories import db
-
-    db.app = app
-    db.init_app(app)
-    with app.app_context():
-        if not db_connection_successful(db):
-            exit(1)
+    api.add_resource(SearchRes, "/search", )
 
     from shared.log_manager import LogManager
     app = LogManager().init_app(app)

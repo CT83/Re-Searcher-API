@@ -1,3 +1,5 @@
+import os
+
 import requests
 
 
@@ -7,6 +9,13 @@ class BingSearch:
         self.api_key = api_key
 
     def search(self, search_term):
+        """
+        Searches Bing API for search_term, pretty simple
+
+        References - https://docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/quickstarts/python
+        :param search_term:
+        :return: dict, dict
+        """
         search_url = "https://api.cognitive.microsoft.com/bing/v7.0/search"
 
         headers = {"Ocp-Apim-Subscription-Key": self.api_key}
@@ -24,6 +33,6 @@ class BingSearch:
 
 
 if __name__ == "__main__":
-    bs = BingSearch(api_key="d228414bc5714963a7d032af6e7c88e3")
+    bs = BingSearch(api_key=os.environ.get['AZURE_BING_KEY'])
     search_res, related_res = bs.search("Red Mustang")
     print(search_res)

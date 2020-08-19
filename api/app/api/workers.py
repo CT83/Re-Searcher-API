@@ -1,9 +1,6 @@
 from flask import request
 from flask_restful import Resource
 
-# from app.api.serializers.worker_schema import WorkerSchema
-# from models import Worker
-from shared.factories import db
 
 
 class Workers(Resource):
