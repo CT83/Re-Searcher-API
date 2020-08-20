@@ -1,8 +1,6 @@
 from pynamodb.attributes import UnicodeAttribute, ListAttribute, MapAttribute
 from pynamodb.models import Model
 
-"""Every search_request -> several search results, -> several search entries"""
-
 
 class BaseModel(Model):
     def to_dict(self):
