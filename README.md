@@ -1,16 +1,22 @@
 # Re-Searcher-API
 This is an App to cache the search results made by APIs. 
 
-## Development - Setup  
+## Setup - Development   
+* Setup `.env` file, refer `.env.example` 
+* `docker-compose up --build -d`
 
-1. `docker-compose up --build -d`
-2. `curl -d '{"query": "Pink Car","engine": "bing"}' -X POST http://localhost/api/search  -H "Content-Type: application/json"`
 
+## Setup - Production  
+* Setup `.prod-env` file, refer `.prod-env.example`
+* `docker-compose -f docker-compose-prod.yml up --build -d`
 
-## Development - Production  
+## How to Use?  
 
-1. `docker-compose -f docker-compose-prod.yml up --build -d`
-2. `curl -d '{"query": "Pink Car","engine": "bing"}' -X POST http://localhost/api/search  -H "Content-Type: application/json"`
+* `curl -d '{"query": "Pink Car","engine": "bing"}' -X POST http://localhost/api/search  -H "Content-Type: application/json"`
+
+## API Reference Docs
+* 
+* 
 
 
 ## Screenshots
