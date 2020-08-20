@@ -37,3 +37,9 @@ class SearchRes(Resource):
         no_searches = SearchRequests.count()
 
         return {"count": no_searches, }
+
+
+class SupportedEnginesRes(Resource):
+
+    def get(self):
+        return {"supported_engines": ["bing", "mock"]}

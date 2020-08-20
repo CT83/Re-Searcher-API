@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 
-from app.api.search import SearchRes
+from app.api.search import SearchRes, SupportedEnginesRes
 from config import config
 from models.utils import init_tables
 from shared.utils import init_celery, init_redis
@@ -17,6 +17,7 @@ def create_app(config_name):
     # Setup routes
     api = Api(app)
     api.add_resource(SearchRes, "/search", )
+    api.add_resource(SupportedEnginesRes, "/supported-engines", )
 
     # Setup logging
     from shared.log_manager import LogManager
