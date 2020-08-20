@@ -5,6 +5,7 @@ from flask_restful import Api
 from app.api.search import SearchRes
 from app.api.workers import Workers
 from config import config
+from models.utils import init_tables
 from shared.utils import init_celery, init_redis
 
 
@@ -14,22 +15,18 @@ def create_app(config_name):
     config[config_name].init_app(app)
     CORS(app)
 
+    # Setup routes
     api = Api(app)
     api.add_resource(SearchRes, "/search", )
 
+    # Setup logging
     from shared.log_manager import LogManager
     app = LogManager().init_app(app)
 
+    # Setup Persistence
     from shared.factories import client
-
-    client = init_celery(celery=client, app=app)
-    app.client = client
-
+    app.client = init_celery(celery=client, app=app)
     app.redis_store = init_redis(app)
-
-    from models.search_results import SearchRequests
-    SearchRequests.Meta.host = app.config['DB_URL']
-    if not SearchRequests.exists():
-        SearchRequests.create_table(read_capacity_units=1, write_capacity_units=1, wait=True)
+    init_tables(app)
 
     return app

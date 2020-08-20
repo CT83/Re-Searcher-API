@@ -52,5 +52,4 @@ services:
 
   redis:
     container_name: rs-redis
-    build: redis/.
-    command: redis-server --appendonly yes
+    image: redis:6-buster
