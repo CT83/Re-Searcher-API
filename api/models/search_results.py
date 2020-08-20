@@ -24,5 +24,6 @@ class SearchRequests(BaseModel):
         aws_access_key_id = "anything"
         aws_secret_access_key = "fake"
 
-    query = UnicodeAttribute(hash_key=True)
+    query_text = UnicodeAttribute(hash_key=True)
+    engine_text = UnicodeAttribute(range_key=True)
     results = ListAttribute(of=Results)

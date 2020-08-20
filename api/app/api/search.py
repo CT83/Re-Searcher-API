@@ -16,18 +16,22 @@ class SearchRes(Resource):
             return {"error": True, "errors": errors}, 400
 
         # Look up in DynamoDB
+        stored_res = SearchRequests.query(data["query"], SearchRequests.engine_text == data["engine"])
+        stored_res = list(stored_res)
+        if stored_res:  # if found return that
+            stored_res = stored_res[0]
+            search_res = [{"url": res.url, "name": res.name}
+                          for res in stored_res.results]
+        else:  # else perform a search
+            searcher = create_searcher(engine=data["engine"])
+            search_res, related_res = searcher.search(data["query"])
 
-        # if not search it
-        searcher = create_searcher(engine=data["engine"])
-        search_res, related_res = searcher.search(data["query"])
+            # then save it
+            results = [Results(name=res["name"], url=res["url"]) for res in search_res]
+            s = SearchRequests(query_text=data["query"], engine_text=data["engine"], results=results)
+            s.save()
 
-        # then save it
-        results = [Results(name=res["name"], url=res["url"]) for res in search_res]
-        s = SearchRequests(query=data["query"], results=results)
-        s.save()
-
-        return {"search_res": search_res,
-                "related_res": related_res, }
+        return {"search_res": search_res}
 
     def get(self):
         no_searches = SearchRequests.count()

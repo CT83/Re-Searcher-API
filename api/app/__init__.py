@@ -3,7 +3,6 @@ from flask_cors import CORS
 from flask_restful import Api
 
 from app.api.search import SearchRes
-from app.api.workers import Workers
 from config import config
 from models.utils import init_tables
 from shared.utils import init_celery, init_redis
