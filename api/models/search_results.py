@@ -19,8 +19,8 @@ class SearchRequests(BaseModel):
     class Meta:
         table_name = 'SearchRequests'
         host = None
-        aws_access_key_id = "anything"
-        aws_secret_access_key = "fake"
+        aws_access_key_id = "XXX"
+        aws_secret_access_key = "XXX"
 
     query_text = UnicodeAttribute(hash_key=True)
     engine_text = UnicodeAttribute(range_key=True)
