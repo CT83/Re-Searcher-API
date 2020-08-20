@@ -40,7 +40,7 @@ class TestingConfig(Config):
     CONFIG_NAME = "testing"
     TESTING = True
     DB_FILE_NAME = 'temp/test_{}.db'.format(generate_random_string())
-    DB_URL = 'sqlite:///' + os.path.join(basedir, DB_FILE_NAME)
+    DB_URL = 'http://database:8000'
     APP_NAME = os.environ.get('APP_NAME')
     RQ_CONNECTION_CLASS = 'fakeredis.FakeStrictRedis'
     CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'

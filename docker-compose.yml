@@ -11,7 +11,7 @@ services:
   database:
     container_name: rs-database
     image: amazon/dynamodb-local
-    command: -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data/
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data/ # command to start dynamo-local
     ports:
       - 8000:8000
     volumes:
@@ -28,16 +28,16 @@ services:
       - ./api:/app
       - ./data:/data
 
-#  api-test:
-#    container_name: rs-test
-#    build: api/.
-#    env_file:
-#      - .env
-#    command: "ptw"
-#    volumes:
-#      - ./api:/app
-#    depends_on:
-#      - database
+  api-test:
+    container_name: rs-test
+    build: api/.
+    env_file:
+      - .env
+    command: "ptw"
+    volumes:
+      - ./api:/app
+    depends_on:
+      - database
 
   worker:
     container_name: rs-worker

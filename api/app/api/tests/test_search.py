@@ -15,4 +15,7 @@ def test_mock_search(app):
     # project_id = data["id"]
     # assert type(data["results"]) == type
     assert isinstance(data["search_res"], list)
-    assert isinstance(data["related_res"], list)
+
+    for res in data["search_res"]:
+        assert res["url"]
+        assert res["name"]
