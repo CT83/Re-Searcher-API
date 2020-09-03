@@ -25,10 +25,14 @@ class BingSearch:
         search_results = response.json()
 
         search_res = search_results.get('webPages').get('value')
-        related_res = search_results.get('relatedSearches').get('value')
-
         search_res = [{"url": r["url"], "name": r["name"], } for r in search_res]
-        related_res = [{"url": r["webSearchUrl"], "text": r["text"], } for r in related_res]
+
+        if search_results.get('relatedSearches'):
+            related_res = search_results.get('relatedSearches').get('value')
+            related_res = [{"url": r["webSearchUrl"], "text": r["text"], } for r in related_res]
+        else:
+            related_res = []
+
         return search_res, related_res
 
 

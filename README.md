@@ -17,8 +17,8 @@ This is an App to cache the search results made by APIs.
 ## API Reference Docs
 #### 1. Search - http://localhost/api/search
 
-##### Request - POST 
-{"query": "The Search Query","engine": "bing"}
+##### Request - GET
+/search?query=<The Search Query> 
 
 ##### Reponse 
 `{
@@ -27,18 +27,6 @@ This is an App to cache the search results made by APIs.
             "url": "https://unsplash.com/s/photos/pink-car",
             "name": "Pink Car Pictures | Download Free Images on Unsplash"
         }...]
-}`
-
-#### 2. Supported Engines - http://localhost/api/supported-engines
-
-##### Request - GET 
-
-##### Reponse 
-`{
-    "supported_engines": [
-        "bing",
-        "mock"
-    ]
 }`
 
 
