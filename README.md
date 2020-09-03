@@ -30,6 +30,24 @@ This is an App to cache the search results made by APIs.
 }`
 
 
+## AWS Setup
+
+1. No manual setup is required on AWS, you only need to supply the correct *Key & Secret tokens* in the *.prod-env* for the user
+who has the "AmazonDynamoDBFullAccess" permission. 
+
+2. Then the results are automatically written to the DynamoDB Table. 
+
+3. The table is automatically created on AWS DynamoDB if it does not already exist. 
+`Check models.utils.init_tables`
+
+### Screenshots
+Here are some screenshots on how to create a new AWS User
+
+![](./images/aws1.png)
+![](./images/aws2.png)
+![](./images/aws3.png)
+![](./images/aws4.png)
+
 ## Screenshots
 
 ![](./images/curl.jpg)
