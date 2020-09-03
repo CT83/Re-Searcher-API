@@ -33,7 +33,7 @@ This is an App to cache the search results made by APIs.
 ## AWS Setup
 
 1. No manual setup is required on AWS, you only need to supply the correct *Key & Secret tokens* in the *.prod-env* for the user
-who has the "AmazonDynamoDBFullAccess" permission. 
+who has the "AmazonDynamoDBFullAccess" permission.
 
 2. Then the results are automatically written to the DynamoDB Table. 
 
